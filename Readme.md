@@ -105,12 +105,12 @@ The spatio-temporal evolution of the regulatory species is governed by the follo
 
 $$
 \begin{aligned}
-\frac{\partial [\text{mir200}]}{\partial t} &= G_{MIR200} \, h_{mir200}^{zeb} \, h_{mir200}^{sna} - [\text{mir200}]^1 \, \text{mir200}_0 - K_{MIR200} [\text{mir200}]^0 + D_{mir200} \nabla^2 [\text{mir200}] \\
-\frac{\partial [m_{zeb}]}{\partial t} &= G_{MZEB} \, h_{mzeb}^{zeb} \, h_{mzeb}^{sna} - [\text{mir200}]^1 \, \text{mir200}_1 - K_{MZEB} [m_{zeb}] + D_{mzeb} \nabla^2 [m_{zeb}] \\
-\frac{\partial [ZEB]}{\partial t} &= G_{ZEB} [\text{mir200}]^1 \, \text{mir200}_2 - K_{ZEB} [ZEB] + D_{ZEB} \nabla^2 [ZEB] \\
-\frac{\partial [SNAIL]}{\partial t} &= G_{SNAIL} [\text{mir34}]^4 \, \text{mir34}_2 - K_{SNAIL} [SNAIL] + D_{SNAIL} \nabla^2 [SNAIL] \\
-\frac{\partial [M_{SNAIL}]}{\partial t} &= G_{MSNAIL} \, h_{msnai} \, h_{msna}^{sna} - [\text{mir34}]^4 \, \text{mir34}_1 - K_{MSNAIL} [M_{SNAIL}] + D_{MSNAIL} \nabla^2 [M_{SNAIL}] \\
-\frac{\partial [\text{mir34}]}{\partial t} &= G_{MIR34} \, h_{mir34}^{zeb} \, h_{mir34}^{sna} - [\text{mir34}]^4 \, \text{mir34}_0 - K_{MIR34} [\text{mir34}] + D_{mir34} \nabla^2 [\text{mir34}] \\
+\frac{\partial [\text{mir200}]}{\partial t} &= G_{MIR200} \. h_{mir200}^{zeb} \. h_{mir200}^{sna} - [\text{mir200}]^1 ., \text{mir200}_0 - K_{MIR200} [\text{mir200}]^0 + D_{mir200} \nabla^2 [\text{mir200}] \\
+\frac{\partial [m_{zeb}]}{\partial t} &= G_{MZEB} \. h_{mzeb}^{zeb} \. h_{mzeb}^{sna} - [\text{mir200}]^1 \. \text{mir200}_1 - K_{MZEB} [m_{zeb}] + D_{mzeb} \nabla^2 [m_{zeb}] \\
+\frac{\partial [ZEB]}{\partial t} &= G_{ZEB} [\text{mir200}]^1 \. \text{mir200}_2 - K_{ZEB} [ZEB] + D_{ZEB} \nabla^2 [ZEB] \\
+\frac{\partial [SNAIL]}{\partial t} &= G_{SNAIL} [\text{mir34}]^4 \. \text{mir34}_2 - K_{SNAIL} [SNAIL] + D_{SNAIL} \nabla^2 [SNAIL] \\
+\frac{\partial [M_{SNAIL}]}{\partial t} &= G_{MSNAIL} \. h_{msnai} \, h_{msna}^{sna} - [\text{mir34}]^4 \. \text{mir34}_1 - K_{MSNAIL} [M_{SNAIL}] + D_{MSNAIL} \nabla^2 [M_{SNAIL}] \\
+\frac{\partial [\text{mir34}]}{\partial t} &= G_{MIR34} \. h_{mir34}^{zeb} \. h_{mir34}^{sna} - [\text{mir34}]^4 \. \text{mir34}_0 - K_{MIR34} [\text{mir34}] + D_{mir34} \nabla^2 [\text{mir34}] \\
 \frac{\partial [I]}{\partial t} &= 0
 \end{aligned}
 $$
