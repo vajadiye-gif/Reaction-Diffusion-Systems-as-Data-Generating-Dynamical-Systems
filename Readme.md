@@ -21,11 +21,20 @@ This project simulates **reaction-diffusion systems** using Python. It includes 
 **Description:**  
 The Gray-Scott model simulates activator-inhibitor dynamics producing complex patterns.
 
-**Equations:**  
-∂u/∂t = Du ∇²u - uv² + F(1-u),
+### Model Dynamics
+The system simulates the interaction of two chemical species, $u$ and $v$, where $u$ is replenished at a feed rate $F$ and $v$ is converted from $u$ in a self-replicating process:
 
-∂v/∂t = Dv ∇²v + uv² - (F+k)v
+$$
+\begin{aligned}
+\frac{\partial u}{\partial t} &= D_u \nabla^2 u - uv^2 + F(1-u) \\
+\frac{\partial v}{\partial t} &= D_v \nabla^2 v + uv^2 - (F+k)v
+\end{aligned}
+$$
 
+#### Parameter Definitions
+* **$D_u, D_v$**: Diffusion coefficients for species $u$ and $v$.
+* **$F$**: The "Feed" rate, determining how quickly $u$ is added to the system.
+* **$k$**: The "Kill" rate, determining the rate at which $v$ is removed.
 
 **Numerical Method:** Finite difference with explicit Euler integration.  
 **Boundary Conditions:** Periodic   
@@ -42,25 +51,39 @@ See the folders Images and videos for more.
 **Description:**  
 The Multi-fate model simulates multiple cell fate decisions with diffusion-coupled reaction dynamics.
 
-**Equations / Dynamics:**  
-∂A/∂t = Du ∇2 A + fA(A,B),
+### Model Dynamics
+The spatio-temporal evolution of species $A$ and $B$ is governed by the following reaction-diffusion system:
 
-∂B/∂t = Dv ∇2 B + fB(A,B)
+$$
+\begin{aligned}
+\frac{\partial A}{\partial t} &= D_u \nabla^2 A + f_A(A, B) \\
+\frac{\partial B}{\partial t} &= D_v \nabla^2 B + f_B(A, B)
+\end{aligned}
+$$
 
-where Du and Dv are the diffusion coefficients for species A and B, respectively.
+#### Reaction Terms
+The nonlinear reaction functions $f_A$ and $f_B$ describe the production and degradation rates:
 
-The nonlinear reaction terms are defined as:
+$$
+\begin{aligned}
+f_A(A,B) &= \alpha + \frac{\beta t_A}{1 + t_A} - A \\
+f_B(A,B) &= \alpha + \frac{\beta t_B}{1 + t_B} - B
+\end{aligned}
+$$
 
-fA(A,B) = α + (β tA) / (1 + tA) - A
-fB(A,B) = α + (β tB) / (1 + tB) - B
+#### Auxiliary Variables
+The Hill-like activation terms $t_A, t_B$ and the dimerization terms $A_2, B_2$ are defined as:
 
-with:
+$$
+t_A = (A_2)^n, \quad t_B = (B_2)^n
+$$
 
-tA = (A2)^n 
-tB = (B2)^n 
-
-A2 = 2*A^2 / [(K + 4(A + B) + sqrt(K^2 + 8 Kd (A + B))]
-B2 = 2*B^2 / [(K + 4(A + B) + sqrt(K^2 + 8 Kd (A + B))]
+$$
+\begin{aligned}
+A_2 &= \frac{2 A^2}{K + 4(A + B) + \sqrt{K^2 + 8 K_d (A + B)}} \\
+B_2 &= \frac{2 B^2}{K + 4(A + B) + \sqrt{K^2 + 8 K_d (A + B)}}
+\end{aligned}
+$$
 
 **Numerical Method:** Finite difference / Euler or other as implemented.  
 **Boundary Conditions:** Periodic / Neumann
@@ -77,21 +100,49 @@ See the folders Images and videos for more.
 **Description:**  
 The EMT (Epithelial-Mesenchymal Transition) model simulates diffusion-driven EMT patterns in cells.
 
-**Equations / Dynamics:**  
-∂[mir200]/∂t = GMIR200 hmir200 zeb hmir200 sna - [mir200]1 mir2000 - KMIR200 [mir200]0 + Dmir200 ∇2[mir200]
+### Model Dynamics
+The spatio-temporal evolution of the regulatory species is governed by the following system of reaction-diffusion equations:
 
-∂[mzeb]/∂t = GMZEB hmzeb zeb hmzeb sna - [mir200]1 mir2001 - KMZEB [mzeb] + Dmzeb ∇2[mzeb]
+$$
+\begin{aligned}
+\frac{\partial [\text{mir200}]}{\partial t} &= G_{MIR200} \, h_{mir200}^{zeb} \, h_{mir200}^{sna} - [\text{mir200}]^1 \, \text{mir200}_0 - K_{MIR200} [\text{mir200}]^0 + D_{mir200} \nabla^2 [\text{mir200}] \\
+\frac{\partial [m_{zeb}]}{\partial t} &= G_{MZEB} \, h_{mzeb}^{zeb} \, h_{mzeb}^{sna} - [\text{mir200}]^1 \, \text{mir200}_1 - K_{MZEB} [m_{zeb}] + D_{mzeb} \nabla^2 [m_{zeb}] \\
+\frac{\partial [ZEB]}{\partial t} &= G_{ZEB} [\text{mir200}]^1 \, \text{mir200}_2 - K_{ZEB} [ZEB] + D_{ZEB} \nabla^2 [ZEB] \\
+\frac{\partial [SNAIL]}{\partial t} &= G_{SNAIL} [\text{mir34}]^4 \, \text{mir34}_2 - K_{SNAIL} [SNAIL] + D_{SNAIL} \nabla^2 [SNAIL] \\
+\frac{\partial [M_{SNAIL}]}{\partial t} &= G_{MSNAIL} \, h_{msnai} \, h_{msna}^{sna} - [\text{mir34}]^4 \, \text{mir34}_1 - K_{MSNAIL} [M_{SNAIL}] + D_{MSNAIL} \nabla^2 [M_{SNAIL}] \\
+\frac{\partial [\text{mir34}]}{\partial t} &= G_{MIR34} \, h_{mir34}^{zeb} \, h_{mir34}^{sna} - [\text{mir34}]^4 \, \text{mir34}_0 - K_{MIR34} [\text{mir34}] + D_{mir34} \nabla^2 [\text{mir34}] \\
+\frac{\partial [I]}{\partial t} &= 0
+\end{aligned}
+$$
 
-∂[ZEB]/∂t = GZEB [mir200]1 mir2002 - KZEB [ZEB] + DZEB ∇2[ZEB]
+#### Mathematical Definition of Phenotypes
+We define the cellular phenotype $\mathcal{P}$ at any spatial coordinate $(i, j)$ based on the steady-state concentrations of the primary miR-200/ZEB loop:
 
-∂[SNAIL]/∂t = GSNAIL [mir34]4 mir342 - KSNAIL [SNAIL] + DSNAIL ∇2[SNAIL]
+$$
+\mathcal{P}_{i,j} = 
+\begin{cases} 
+\text{Epithelial (E)} & \text{if } [\text{mir200}] \gg [\text{ZEB}] \\
+\text{Hybrid (E/M)} & \text{if } [\text{mir200}] \approx [\text{ZEB}] \\
+\text{Mesenchymal (M)} & \text{if } [\text{mir200}] \ll [\text{ZEB}] 
+\end{cases}
+$$
 
-∂[MSNAIL]/∂t = GMSNAIL hmsnai hmsna sna - [mir34]4 mir341 - KMSNAIL [MSNAIL] + DMSNAIL ∇2[MSNAIL]
+#### Phenotypic Signatures
+The transition between states is characterized by the following molecular profiles:
 
-∂[mir34]/∂t = GMIR34 hmir34 zeb hmir34 sna - [mir34]4 mir340 - KMIR34 [mir34] + Dmir34 ∇2[mir34]
-
-∂[I]/∂t = 0
-
+$$
+\begin{array}{|l|c|c|c|}
+\hline
+\textbf{Phenotype} & [\text{mir200}] & [\text{ZEB}] & \text{Biological State} \\
+\hline
+\color{blue}{\text{Epithelial (E)}} & \uparrow \text{ High} & \downarrow \text{ Low} & \text{Adherent / Stationary} \\
+\hline
+\color{green}{\text{Hybrid (E/M)}} & \sim \text{ Mid} & \sim \text{ Mid} & \text{Collective Migration} \\
+\hline
+\color{red}{\text{Mesenchymal (M)}} & \downarrow \text{ Low} & \uparrow \text{ High} & \text{Invasive / Solitary} \\
+\hline
+\end{array}
+$$
 
 **Numerical Method:** Finite difference / Euler.  
 **Boundary Conditions:** Neumann
