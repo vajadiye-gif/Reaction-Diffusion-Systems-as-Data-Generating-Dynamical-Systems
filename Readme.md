@@ -161,7 +161,7 @@ $$
 
 $$
 \begin{aligned}
-A_2 &= \frac{2A^2}{K + 4(A + B) + \sqrt{K^2 + 8K_d(A + B)}} \
+A_2 &= \frac{2A^2}{K + 4(A + B) + \sqrt{K^2 + 8K_d(A + B)}} \\
 B_2 &= \frac{2B^2}{K + 4(A + B) + \sqrt{K^2 + 8K_d(A + B)}}
 \end{aligned}
 $$
